@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/service/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnDestroy{
 
 private readonly _AuthService=inject(AuthService);
 private readonly _Router=inject(Router)
@@ -21,7 +22,7 @@ maserror:string='';
 setTimeout:boolean=false;
 isloading:boolean=false;
 
-
+regesSubscription !:Subscription
 
 registerform: FormGroup =this._FormBuilder.group({
 
@@ -50,7 +51,7 @@ register():void{
   if(this.registerform.valid)
   {
     this.isloading=true;
-   this._AuthService.setregister(this.registerform.value).subscribe({
+   this.regesSubscription = this._AuthService.setregister(this.registerform.value).subscribe({
     next:(res)=>{
       console.log(res);
       if(res.message === 'success')
@@ -75,7 +76,9 @@ register():void{
 }
 
 
-
+ngOnDestroy(): void {
+  this.regesSubscription?.unsubscribe();
+}
 
 
 
