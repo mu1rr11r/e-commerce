@@ -13,7 +13,8 @@ import { authGuard } from './core/guards/auth.guard';
 import { logdGuard } from './core/guards/logd.guard';
 
 export const routes: Routes = [
-     {path:'auth',component:AuthLayoutComponent,canActivate:[logdGuard],children:
+    {path:'',redirectTo:'blank/home',pathMatch:'full'},
+    {path:'auth',component:AuthLayoutComponent,canActivate:[logdGuard],children:
         [
             {path:'',redirectTo:'login',pathMatch:'full'},
             {path: 'login',component:LoginComponent},
@@ -29,5 +30,6 @@ export const routes: Routes = [
             {path:'brand',component:BrandComponent},
             {path:'product',component:ProductComponent},
             
-        ]}
+        ]},
+    {path:'**',redirectTo:'blank/home'}
 ]
