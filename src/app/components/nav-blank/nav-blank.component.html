@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand-lg custom-navbar sticky-top shadow-lg px-3">
+  <div class="container-fluid px-2">
+
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" routerLink="/home">
+      <div class="logo-icon-wrap">
+        <i class="fa-solid fa-bag-shopping"></i>
+      </div>
+      <span class="logo-text-grad">E-Shop</span>
+    </a>
+
+    <!-- Mobile Toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <!-- Navbar Content -->
+    <div class="collapse navbar-collapse" id="navbarMain">
+
+      <!-- Center Links -->
+      <ul class="navbar-nav mx-auto gap-lg-1">
+        <li class="nav-item">
+          <a class="nav-custom" routerLink="home" routerLinkActive="active-link">
+            <i class="fa-solid fa-house"></i> Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-custom" routerLink="cart" routerLinkActive="active-link">
+            <i class="fa-solid fa-cart-shopping"></i> Cart
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-custom" routerLink="category" routerLinkActive="active-link">
+            <i class="fa-solid fa-layer-group"></i> Category
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-custom" routerLink="brand" routerLinkActive="active-link">
+            <i class="fa-solid fa-tags"></i> Brand
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-custom" routerLink="product" routerLinkActive="active-link">
+            <i class="fa-solid fa-box-open"></i> Product
+          </a>
+        </li>
+      </ul>
+
+      <!-- Right Side -->
+      <div class="d-flex align-items-center gap-2 flex-wrap right-section">
+
+        <!-- Social Icons -->
+        <a href="https://www.facebook.com/login/?locale=en_GB" target="_blank" class="social-btn">
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/accounts/login/" target="_blank" class="social-btn">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://twitter.com/login" target="_blank" class="social-btn">
+          <i class="fa-brands fa-x-twitter"></i>
+        </a>
+
+        <div class="nav-divider d-none d-lg-block"></div>
+<a (click)="logout()" class="btn btn-logout-nav">
+  <i class="fa-solid fa-right-from-bracket me-1"></i>
+  LogOut
+</a>
+      </div>
+    </div>
+  </div>
+</nav>

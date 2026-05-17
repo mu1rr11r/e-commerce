@@ -1,0 +1,184 @@
+<!-- ===== REGISTER ===== -->
+<div class="min-vh-100 d-flex align-items-center justify-content-center position-relative overflow-hidden"
+  style="background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);">
+ 
+  <!-- Floating orbs background -->
+  <div class="position-absolute top-0 start-0 w-100 h-100" style="pointer-events:none; overflow:hidden;">
+    <div class="position-absolute rounded-circle opacity-25"
+      style="width:320px;height:320px;background:radial-gradient(circle,#f7c948,transparent);top:-80px;left:-80px;animation:floatOrb 8s ease-in-out infinite;"></div>
+    <div class="position-absolute rounded-circle opacity-25"
+      style="width:220px;height:220px;background:radial-gradient(circle,#a78bfa,transparent);bottom:-60px;right:-60px;animation:floatOrb 11s ease-in-out infinite reverse;"></div>
+    <div class="position-absolute rounded-circle opacity-15"
+      style="width:160px;height:160px;background:radial-gradient(circle,#38bdf8,transparent);top:50%;left:80%;animation:floatOrb 9s ease-in-out infinite 3s;"></div>
+  </div>
+ 
+  <div class="card border-0 shadow-lg w-100 animate__animated animate__fadeInUp"
+    style="max-width:460px; border-radius:24px; background:rgba(255,255,255,0.06); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.12) !important;">
+ 
+    <!-- Header stripe -->
+    <div class="rounded-top-4 py-4 px-4 text-center"
+      style="background:linear-gradient(90deg,#f7c948,#f59e0b); border-radius:24px 24px 0 0;">
+      <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-2"
+        style="width:56px;height:56px;background:rgba(0,0,0,0.15);">
+        <i class="fa-solid fa-user-plus fa-lg text-white"></i>
+      </div>
+      <h4 class="fw-bold text-white mb-0 mt-1" style="letter-spacing:1px;">Create Account</h4>
+      <p class="text-white-50 small mb-0">Join us today — it's free</p>
+    </div>
+ 
+    <div class="card-body p-4">
+      <form [formGroup]="registerform" (ngSubmit)="register()">
+ 
+        <!-- Full Name -->
+        <div class="mb-3 animate__animated animate__fadeInLeft" style="animation-delay:.05s">
+          <label class="form-label text-white-50 small fw-semibold mb-1">
+            <i class="fa-solid fa-user me-1 text-warning"></i> Full Name
+          </label>
+          <input type="text" class="form-control form-control-lg border-0 text-white"
+            style="background:rgba(255,255,255,0.08); border-radius:12px; transition:background .3s;"
+            onfocus="this.style.background='rgba(247,201,72,0.15)'"
+            onblur="this.style.background='rgba(255,255,255,0.08)'"
+            placeholder="John Doe" formControlName="name">
+          @if (registerform.get('name')?.touched) {
+            @if (registerform.get('name')?.getError('required')) {
+              <div class="text-warning small mt-1 animate__animated animate__shakeX">
+                <i class="fa-solid fa-circle-exclamation me-1"></i>Full Name is required.
+              </div>
+            }
+            @if (registerform.get('name')?.getError('minlength')) {
+              <div class="text-warning small mt-1 animate__animated animate__shakeX">
+                <i class="fa-solid fa-circle-exclamation me-1"></i>At least 3 characters required.
+              </div>
+            }
+            @if (registerform.get('name')?.getError('maxlength')) {
+              <div class="text-warning small mt-1 animate__animated animate__shakeX">
+                <i class="fa-solid fa-circle-exclamation me-1"></i>Max 20 characters allowed.
+              </div>
+            }
+          }
+        </div>
+ 
+        <!-- Email -->
+        <div class="mb-3 animate__animated animate__fadeInLeft" style="animation-delay:.1s">
+          <label class="form-label text-white-50 small fw-semibold mb-1">
+            <i class="fa-solid fa-envelope me-1 text-warning"></i> Email
+          </label>
+          <input type="email" class="form-control form-control-lg border-0 text-white"
+            style="background:rgba(255,255,255,0.08); border-radius:12px; transition:background .3s;"
+            onfocus="this.style.background='rgba(247,201,72,0.15)'"
+            onblur="this.style.background='rgba(255,255,255,0.08)'"
+            placeholder="you@example.com" formControlName="email">
+          @if (registerform.get('email')?.touched) {
+            @if (registerform.get('email')?.getError('required')) {
+              <div class="text-warning small mt-1 animate__animated animate__shakeX">
+                <i class="fa-solid fa-circle-exclamation me-1"></i>Email is required.
+              </div>
+            }
+            @if (registerform.get('email')?.getError('email')) {
+              <div class="text-warning small mt-1 animate__animated animate__shakeX">
+                <i class="fa-solid fa-circle-exclamation me-1"></i>Enter a valid email address.
+              </div>
+            }
+          }
+        </div>
+ 
+        <!-- Password -->
+        <div class="mb-3 animate__animated animate__fadeInLeft" style="animation-delay:.15s">
+          <label class="form-label text-white-50 small fw-semibold mb-1">
+            <i class="fa-solid fa-lock me-1 text-warning"></i> Password
+          </label>
+          <input type="password" class="form-control form-control-lg border-0 text-white"
+            style="background:rgba(255,255,255,0.08); border-radius:12px; transition:background .3s;"
+            onfocus="this.style.background='rgba(247,201,72,0.15)'"
+            onblur="this.style.background='rgba(255,255,255,0.08)'"
+            placeholder="••••••••" formControlName="password">
+          @if (registerform.get('password')?.touched) {
+            @if (registerform.get('password')?.getError('required')) {
+              <div class="text-warning small mt-1 animate__animated animate__shakeX">
+                <i class="fa-solid fa-circle-exclamation me-1"></i>Password is required.
+              </div>
+            }
+            @if (registerform.get('password')?.getError('pattern')) {
+              <div class="text-warning small mt-1 animate__animated animate__shakeX">
+                <i class="fa-solid fa-circle-exclamation me-1"></i>Must include uppercase, lowercase, number & special character.
+              </div>
+            }
+          }
+        </div>
+ 
+        <!-- Confirm Password -->
+        <div class="mb-3 animate__animated animate__fadeInLeft" style="animation-delay:.2s">
+          <label class="form-label text-white-50 small fw-semibold mb-1">
+            <i class="fa-solid fa-lock me-1 text-warning"></i> Confirm Password
+          </label>
+          <input type="password" class="form-control form-control-lg border-0 text-white"
+            style="background:rgba(255,255,255,0.08); border-radius:12px; transition:background .3s;"
+            onfocus="this.style.background='rgba(247,201,72,0.15)'"
+            onblur="this.style.background='rgba(255,255,255,0.08)'"
+            placeholder="••••••••" formControlName="rePassword">
+          @if (registerform.getError('mismatch') && registerform.get('rePassword')?.touched) {
+            <p class="text-warning small mt-1 animate__animated animate__shakeX">
+              <i class="fa-solid fa-circle-exclamation me-1"></i>Passwords do not match.
+            </p>
+          }
+        </div>
+ 
+        <!-- Phone -->
+        <div class="mb-4 animate__animated animate__fadeInLeft" style="animation-delay:.25s">
+          <label class="form-label text-white-50 small fw-semibold mb-1">
+            <i class="fa-solid fa-phone me-1 text-warning"></i> Phone
+          </label>
+          <input type="text" class="form-control form-control-lg border-0 text-white"
+            style="background:rgba(255,255,255,0.08); border-radius:12px; transition:background .3s;"
+            onfocus="this.style.background='rgba(247,201,72,0.15)'"
+            onblur="this.style.background='rgba(255,255,255,0.08)'"
+            placeholder="+20 1XX XXX XXXX" formControlName="phone">
+          @if (registerform.get('phone')?.touched) {
+            @if (registerform.get('phone')?.getError('required')) {
+              <div class="text-warning small mt-1 animate__animated animate__shakeX">
+                <i class="fa-solid fa-circle-exclamation me-1"></i>Phone number is required.
+              </div>
+            }
+            @if (registerform.get('phone')?.getError('pattern')) {
+              <div class="text-warning small mt-1 animate__animated animate__shakeX">
+                <i class="fa-solid fa-circle-exclamation me-1"></i>Enter a valid phone number.
+              </div>
+            }
+          }
+        </div>
+ 
+        <!-- Submit -->
+        <button [disabled]="registerform.invalid || isloading"
+          class="btn btn-lg w-100 fw-bold text-dark animate__animated animate__fadeInUp"
+          style="background:linear-gradient(90deg,#f7c948,#f59e0b); border-radius:14px; letter-spacing:.5px; transition:transform .2s,box-shadow .2s; animation-delay:.3s;"
+          onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(247,201,72,0.4)'"
+          onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'"
+          type="submit">
+          @if (!isloading) {
+            <i class="fa-solid fa-user-plus me-2"></i> Create Account
+          }
+          @if (isloading) {
+            <span class="spinner-border spinner-border-sm me-2" role="status"></span> Creating...
+          }
+        </button>
+ 
+        @if (maserror) {
+          <div class="alert alert-danger border-0 mt-3 rounded-3 animate__animated animate__headShake small">
+            <i class="fa-solid fa-triangle-exclamation me-2"></i>{{ maserror }}
+          </div>
+        }
+ 
+        <p class="text-center text-white-50 small mt-3 mb-0">
+          Already have an account?
+          <a routerLink="/auth/login" class="text-warning fw-bold text-decoration-none">Sign In</a>
+        </p>
+     @if(setTimeout){
+       <p class="text-success small mt-1">
+         <i class="fa-solid fa-circle-check me-1"></i>Account created successfully.
+       </p>
+     }
+      </form>
+    </div>
+  </div>
+</div>
+ 
