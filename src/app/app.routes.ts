@@ -11,6 +11,7 @@ import { ProductComponent } from './components/product/product.component';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import { authGuard } from './core/guards/auth.guard';
 import { logdGuard } from './core/guards/logd.guard';
+import { DetailsComponent } from './components/details/details.component';
 
 export const routes: Routes = [
     {path:'',redirectTo:'blank/home',pathMatch:'full'},
@@ -29,6 +30,8 @@ export const routes: Routes = [
             {path:'category',component:CategoryComponent},
             {path:'brand',component:BrandComponent},
             {path:'product',component:ProductComponent},
+            {path:'details/:id',component:DetailsComponent},
+
             
         ]},
     {path:'**',redirectTo:'blank/home'}

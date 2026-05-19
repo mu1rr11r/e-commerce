@@ -17,7 +17,7 @@ getAllProducts():Observable<any>{
 
 
 
-specificProduct(id: string):Observable<any>{
+specificProduct(id: string | null):Observable<any>{
   return this._HttpClient.get(`${environment.baseUrl}/api/v1/products/${id}`);
 }
 }

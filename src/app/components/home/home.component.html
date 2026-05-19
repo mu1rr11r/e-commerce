@@ -10,52 +10,45 @@
     </div>
 
     <owl-carousel-o [options]="customOptionsCat" class="categories-carousel">
-      <ng-template carouselSlide *ngFor="let cat of categories; trackBy: trackByCategoryId">
-        <div class="category-card">
-          <div class="category-image">
-            <img [src]="cat.image" [alt]="cat.name" />
+      <!-- تعديل الكاتيجوري هنا -->
+      @for (cat of categories; track cat._id) {
+        <ng-template carouselSlide>
+          <div class="category-card">
+            <div class="category-image">
+              <img [src]="cat.image" [alt]="cat.name" />
+            </div>
+            <div class="category-content">
+              <span class="category-title">{{ cat.name }}</span>
+              <span class="category-count">{{ cat.slug || 'Collection' }}</span>
+            </div>
           </div>
-          <div class="category-content">
-            <span class="category-title">{{ cat.name }}</span>
-            <span class="category-count">{{ cat.slug || 'Collection' }}</span>
-          </div>
-        </div>
-      </ng-template>
+        </ng-template>
+      }
     </owl-carousel-o>
   </div>
 </section>
 
+<!-- ===== PRODUCTS ===== -->
 <section class="products-section py-5">
   <div class="container-xl">
-
-    <!-- Section Header -->
-    <div class="section-header d-flex align-items-end justify-content-between mb-4 pb-2">
-      <div>
-        <span class="section-label">Featured Collection</span>
-        <h2 class="section-title mb-0">Popular Products</h2>
-      </div>
-      <a routerLink="/product" class="btn btn-view-all">
-        View All <i class="fa-solid fa-arrow-right ms-1" style="font-size:.75rem;"></i>
-      </a>
-    </div>
-
-    <!-- Products Grid -->
-    <div class="row g-4">
-      <ng-container *ngFor="let product of products; trackBy: trackByProductId">
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
-          <div class="product-card">
-
-            <!-- Badge -->
-            <div *ngIf="product.priceAfterDiscount && product.priceAfterDiscount < product.price" class="product-badge">
+    <div class="products-grid">
+      @for (product of products || []; track product._id) {
+        <div class="product-grid-item">
+          <!-- الكارت بالكامل يوجّه للتفاصيل -->
+          <div class="product-card" [routerLink]="['/blank/details', product._id]">
+            
+            <div 
+              class="product-badge"
+              [hidden]="!(product.priceAfterDiscount && product.priceAfterDiscount < product.price)"
+            >
               -{{ ((product.price - product.priceAfterDiscount) / product.price * 100) | number:'1.0-0' }}%
             </div>
 
-            <!-- Wishlist -->
-            <button class="wishlist-btn" aria-label="Add to wishlist">
+            <!-- تعديل: منع الانتقال عند الضغط على الـ Wishlist -->
+            <button class="wishlist-btn" aria-label="Add to wishlist" (click)="$event.stopPropagation()">
               <i class="fa-regular fa-heart"></i>
             </button>
 
-            <!-- Image -->
             <div class="product-img-wrap">
               <img
                 [src]="product.imageCover || product.images?.[0]"
@@ -63,47 +56,57 @@
                 class="product-img"
                 loading="lazy"
               />
-              <!-- Quick Add Overlay -->
+
               <div class="product-overlay">
-                <button class="btn btn-quick-add" (click)="addToCart(product._id)">
-                  <i class="fa-solid fa-cart-plus me-1"></i> Quick Add
+                <!-- تعديل: أضفنا $event.stopPropagation() هنا لمنع الانتقال لصفحة التفاصيل -->
+                <button
+                  class="btn btn-quick-add"
+                  (click)="$event.stopPropagation(); addToCart(product._id)"
+                >
+                  <i class="fa-solid fa-cart-plus me-1"></i>
+                  Quick Add
                 </button>
               </div>
             </div>
 
-            <!-- Info -->
             <div class="product-info">
-              <span class="product-category">{{ product.category?.name }}</span>
-              <h3 class="product-title" [title]="product.title">{{ product.title }}</h3>
+              <span class="product-category">
+                {{ product.category?.name }}
+              </span>
+              <h3 class="product-title" [title]="product.title">
+                {{ product.title }}
+              </h3>
 
               <div class="product-footer">
                 <div class="product-price">
-                  <ng-container *ngIf="product.priceAfterDiscount; else noDiscount">
-                    <span class="price-current">{{ product.priceAfterDiscount | currency:'EGP':'symbol':'1.0-0' }}</span>
-                    <span class="price-old">{{ product.price | currency:'EGP':'symbol':'1.0-0' }}</span>
-                  </ng-container>
-                  <ng-template #noDiscount>
-                    <span class="price-current">{{ product.price | currency:'EGP':'symbol':'1.0-0' }}</span>
-                  </ng-template>
+                  <span class="price-current">
+                    {{
+                      (product.priceAfterDiscount || product.price)
+                      | currency:'EGP':'symbol':'1.0-0'
+                    }}
+                  </span>
+
+                  <span
+                    class="price-old"
+                    [hidden]="!product.priceAfterDiscount"
+                  >
+                    {{ product.price | currency:'EGP':'symbol':'1.0-0' }}
+                  </span>
                 </div>
+
                 <div class="product-rating">
                   <i class="fa-solid fa-star"></i>
                   <span>{{ product.ratingsAverage || 0 }}</span>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
-      </ng-container>
-
-      <div *ngIf="!products || products.length === 0" class="col-12 text-center py-5">
-        <div class="empty-state">
-          <i class="fa-solid fa-box-open mb-3" style="font-size:3rem; color:rgba(247,201,72,0.4);"></i>
-          <p class="text-white-50">No products available.</p>
+      } @empty {
+        <div class="w-100 text-center py-5 text-muted">
+          No products found.
         </div>
-      </div>
+      }
     </div>
-
   </div>
 </section>

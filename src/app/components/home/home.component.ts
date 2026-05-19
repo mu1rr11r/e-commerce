@@ -6,11 +6,12 @@ import { Subscription } from 'rxjs';
 import { CategoriesService } from '../../core/service/categories.service';
 import { Icategories } from '../../core/interface/icategories';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,CarouselModule ],
+  imports: [CommonModule,CarouselModule,RouterLink],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -30,7 +31,7 @@ customOptionsCat: OwlOptions = {
   autoplayHoverPause: true,
   smartSpeed: 700,
   autoplaySpeed: 700,
-  mouseDrag: true,
+  mouseDrag: true, 
   touchDrag: true,
   pullDrag: true,
   dots: false,
