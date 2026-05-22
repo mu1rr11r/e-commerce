@@ -1,3 +1,27 @@
+.home-date-wrapper {
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: rgba(185, 17, 17, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.home-date-label {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(231, 29, 29, 0.65);
+}
+
+.home-date-value {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #961919;
+}
+
 .categories-section {
   background: linear-gradient(180deg, rgba(15, 12, 41, 0.95) 0%, rgba(26, 16, 64, 0.95) 100%);
   padding: 2rem 0;

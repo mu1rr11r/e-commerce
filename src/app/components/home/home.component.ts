@@ -18,7 +18,10 @@ import { RouterLink } from '@angular/router';
 export class HomeComponent implements OnInit ,OnDestroy{
   private readonly _ProdectService = inject(ProdectService);
   private readonly _CategoriesService = inject(CategoriesService);
+   
 
+  hmed = new Date();
+  
   products: Iprodect[] = [];
 
   categories: Icategories[] = [];
